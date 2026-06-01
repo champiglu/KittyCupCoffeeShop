@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kitty Cup Coffee Shop</title>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #efc2ce;
+      background-image: url("fondo.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header img {
+      width: 100px;
+      border-radius: 50%;
+    }
+
+    h1 {
+      color: #8b5e5e;
+      margin: 10px 0 0;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      text-align: center;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #c97b84;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #8b5e5e;
+    }
+
+    h2 {
+      color: #8b5e5e;
+      text-align: center;
+    }
+
+    p {
+      line-height: 1.6;
+      text-align: center;
+      color: #5f4b4b;
+    }
+
+    .kawaii-btn {
+      display: inline-block;
+      background: #f7a8b8;
+      color: white;
+      padding: 12px 25px;
+      margin: 10px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .kawaii-btn:hover {
+      background: #e98fa4;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .botones {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    hr {
+      border: none;
+      height: 2px;
+      background: #f1b4c1;
+      border-radius: 10px;
+      margin: 25px 0;
+    }
+
+    .seccion-historia,
+    .seccion-horarios,
+    .seccion-pedido {
+      margin-top: 50px;
+      padding-top: 20px;
+    }
+
+    .menu-panel {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      animation: aparecer 0.35s ease;
+    }
+
+    .menu-opciones {
+      margin-top: 10px;
+    }
+
+    .menu-opciones .kawaii-btn {
+      margin: 8px;
+    }
+
+    .menu-imagen {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .menu-imagen img {
+      width: 85%;
+      max-width: 600px;
+      border-radius: 18px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .horario-box {
+      background: #ffe6ec;
+      padding: 20px;
+      border-radius: 20px;
+      width: 320px;
+      max-width: 90%;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .horario-box p {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .pedido-box {
+      max-width: 700px;
+      margin: auto;
+      padding: 30px 10px;
+      font-family: Arial, sans-serif;
+    }
+
+    .pedido-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .pedido-form input,
+    .pedido-form select,
+    .pedido-form textarea {
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .pedido-form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .pedido-form button {
+      background: #6b3e26;
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .pedido-form button:hover {
+      background: #845037;
+      transform: translateY(-2px);
+    }
+
+    
+    .galeria-panel {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+      animation: aparecer 0.35s ease;
+    }
+
+    .galeria-imagenes {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 15px;
+    }
+
+    .galeria-grid img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+    }
+
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <img src="logokitty.jpeg" alt="Kitty Cup">
+      <h1>Kitty Cup</h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#nuestra-historia">Nuestra historia</a></li>
+        <li><a href="#horarios">Horarios</a></li>
+        <li><a href="#ordenar">Ordenar ahora</a></li>
+      </ul>
+    </nav>
+
+    <hr>
+
+    <section>
+      <h2>Bienvenidos a Kitty Cup</h2>
+
+      <p>
+        En Kitty Cup queremos ofrecer un lugar acogedor donde puedas disfrutar de un delicioso café
+        y pasar momentos especiales con amigos y familia. Cada detalle ha sido pensado para brindarte
+        una experiencia única, dulce y llena de calidez.
+      </p>
+
+      <p>
+        Aquí creemos que el café no solo se bebe, sino que también se siente. Nuestro espacio está diseñado
+        para que te relajes, compartas y crees recuerdos inolvidables junto a tus personas especiales.
+      </p>
+
+      <div class="botones">
+        <button type="button" class="kawaii-btn" onclick="toggleMenu()">Ver menú</button>
+        <button type="button" class="kawaii-btn" onclick="toggleGaleria()">Ver galería</button>
+        <a href="#ordenar" class="kawaii-btn">Ordenar ahora</a>
+      </div>
+
+      <div class="menu-panel" id="menuPanel">
+        <div class="menu-opciones">
+          <button type="button" class="kawaii-btn" onclick="toggleMenuImagen('comida')">Comida</button>
+          <button type="button" class="kawaii-btn" onclick="toggleMenuImagen('bebida')">Bebida</button>
+        </div>
+
+        <div class="menu-imagen" id="menuComida">
+          <img src="camilauno.jpeg" alt="Menú de comida">
+        </div>
+
+        <div class="menu-imagen" id="menuBebida">
+          <img src="camilados.jpeg" alt="Menú de bebida">
+        </div>
+      </div>
+    
+      <div class="galeria-panel" id="galeriaPanel">
+        <div class="menu-opciones">
+          <button type="button" class="kawaii-btn" onclick="toggleGaleriaImagen('postres')">Postres</button>
+          <button type="button" class="kawaii-btn" onclick="toggleGaleriaImagen('bebidas')">Bebidas</button>
+        </div>
+
+        <div class="galeria-imagenes" id="galeriaPostres">
+          <div class="galeria-grid">
+            <img src="dona.jpg" alt="Postre 1">
+            <img src="Tiramisu.jpg" alt="Postre 2">
+            <img src="mofin.jpg" alt="Postre 3">
+            <img src="bana.jpg" alt="Postre 4">
+          </div>
+        </div>
+
+        <div class="galeria-imagenes" id="galeriaBebidas">
+          <div class="galeria-grid">
+            <img src="late.jpg" alt="Bebida 1">
+            <img src="leche.jpg" alt="Bebida 2">
+            <img src="capu.jpg" alt="Bebida 3">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="nuestra-historia" class="seccion-historia">
+      <hr>
+      <h2>Nuestra historia</h2>
+
+      <p>
+        Kitty Cup nació como una idea creada por dos estudiantes con muchas ganas de soñar y emprender.
+        Yo, Kevin, junto con mi compañera Camila, imaginamos un lugar especial donde el café, la dulzura
+        y un ambiente bonito pudieran unirse para ofrecer una experiencia agradable a cada persona.
+      </p>
+
+      <p>
+        Este proyecto representa nuestro esfuerzo, creatividad y dedicación como estudiantes,
+        ya que quisimos convertir una simple idea en una propuesta con identidad propia.
+        Nos inspiramos en crear un espacio acogedor, tierno y diferente, pensado para quienes disfrutan
+        de los pequeños detalles y de momentos tranquilos acompañados de una buena bebida.
+      </p>
+
+      <p>
+        A través de Kitty Cup buscamos demostrar que con trabajo en equipo, organización y entusiasmo,
+        es posible construir algo bonito desde cero. Esta es una historia hecha con ilusión,
+        compromiso y muchas ganas de crecer.
+      </p>
+    </section>
+
+    <section id="horarios" class="seccion-horarios">
+      <hr>
+      <h2>Horarios de atención</h2>
+
+      <p>
+        Estos son nuestros horarios para que puedas visitarnos y disfrutar de nuestros productos.
+      </p>
+
+      <div class="horario-box">
+        <p>Lunes a Viernes</p>
+        <p>8:00 AM - 6:00 PM</p>
+
+        <p>Sábados</p>
+        <p>9:00 AM - 4:00 PM</p>
+
+        <p>Domingos</p>
+        <p>Cerrado</p>
+      </div>
+    </section>
+
+    <section id="ordenar" class="seccion-pedido">
+      <hr>
+
+      <div class="pedido-box">
+        <h2>Realiza tu pedido en línea</h2>
+
+        <form id="pedidoForm" class="pedido-form">
+          <input type="text" id="nombre" placeholder="Tu nombre" required>
+          <input type="tel" id="telefono" placeholder="Tu teléfono" required>
+
+          <select id="producto">
+            <option value="Cappuccino - $3.50">Cappuccino - $3.50</option>
+            <option value="Latte - $3.75">Latte - $3.75</option>
+            <option value="Mocha - $4.00">Mocha - $4.00</option>
+            <option value="Cheesecake - $4.50">Cheesecake - $4.50</option>
+            <option value="Brownie - $3.00">Brownie - $3.00</option>
+            <option value="Sandwich de pollo - $6.50">Sandwich de pollo - $6.50</option>
+            <option value="Espresso — $1.50">Espresso — $1.50</option>
+            <option value="Americano — $2.00">Americano — $2.00</option>
+            <option value="Cappuccino — $3.50">Cappuccino — $3.50</option>
+            <option value="Latte — $3.75">Latte — $3.75</option>
+            <option value="Mocha — $4.00">Mocha — $4.00</option>
+            <option value="Chocolate caliente — $3.00">Chocolate caliente — $3.00</option>
+            <option value="Iced Latte — $4.00">Iced Latte — $4.00</option>
+            <option value="Cold Brew — $4.50">Cold Brew — $4.50</option>
+            <option value="Frappé de café — $4.75">Frappé de café — $4.75</option>
+            <option value="Frappé de chocolate — $5.00">Frappé de chocolate — $5.00</option>
+            <option value="Smoothie de mango — $4.50">Smoothie de mango — $4.50</option>
+            <option value="Smoothie de fresa — $4.50">Smoothie de fresa — $4.50</option>
+            <option value="Té frío artesanal — $3.00">Té frío artesanal — $3.00</option>
+            <option value="Limonada con hierbabuena — $3.50">Limonada con hierbabuena — $3.50</option>
+            <option value="Cheesecake de cochoclate - $4.50">Cheesecake de cochoclate - $4.50</option>
+            <option value="Brownie - $3.00">Brownie - $3.00</option>
+            <option value="Sandwich de pollo - $6.50">Sandwich de pollo - $6.50</option>
+            <option value="chocolate chips cookie - $1.50 c/u">chocolate chips cookie - $1.50 c/u</option>
+            <option value="galletas de avena - $1.75 c/u">galletas de avena - $1.75 c/u</option>
+            <option value="Pie de manzana - $2.00 porcion">Pie de manzana - $2.00 porcion</option>
+            <option value="Cheesecake de fresa $4.00">Cheesecake de fresa $4.00</option>
+          </select>
+
+          <input type="number" id="cantidad" min="1" value="1">
+          <textarea id="comentarios" placeholder="Comentarios adicionales..."></textarea>
+
+          <button type="button" onclick="enviarPedido()">Enviar pedido por WhatsApp</button>
+        </form>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const panel = document.getElementById("menuPanel");
+      const comida = document.getElementById("menuComida");
+      const bebida = document.getElementById("menuBebida");
+
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+        comida.style.display = "none";
+        bebida.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    }
+
+    function toggleMenuImagen(tipo) {
+      const comida = document.getElementById("menuComida");
+      const bebida = document.getElementById("menuBebida");
+
+      if (tipo === "comida") {
+        comida.style.display = (comida.style.display === "block") ? "none" : "block";
+        bebida.style.display = "none";
+      } else if (tipo === "bebida") {
+        bebida.style.display = (bebida.style.display === "block") ? "none" : "block";
+        comida.style.display = "none";
+      }
+    }
+
+    
+    function toggleGaleria() {
+      const panel = document.getElementById("galeriaPanel");
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    }
+
+    function toggleGaleriaImagen(tipo) {
+      const postres = document.getElementById("galeriaPostres");
+      const bebidas = document.getElementById("galeriaBebidas");
+
+      if (tipo === "postres") {
+        postres.style.display = postres.style.display === "block" ? "none" : "block";
+        bebidas.style.display = "none";
+      } else {
+        bebidas.style.display = bebidas.style.display === "block" ? "none" : "block";
+        postres.style.display = "none";
+      }
+    }
+
+
+    function enviarPedido() {
+      const nombre = document.getElementById("nombre").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const producto = document.getElementById("producto").value;
+      const cantidad = document.getElementById("cantidad").value;
+      const comentarios = document.getElementById("comentarios").value.trim();
+
+      const mensaje = `NUEVO PEDIDO
+Nombre: ${nombre}
+Teléfono: ${telefono}
+Producto: ${producto}
+Cantidad: ${cantidad}
+Comentarios: ${comentarios || "Ninguno"}`;
+
+      const numeroWhatsApp = "50370257631";
+      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
